@@ -20,7 +20,7 @@ public class Count {
 	public String getType() {
 		return type;
 	}
-	
+
 	public String getHost() {
 		return host;
 	}

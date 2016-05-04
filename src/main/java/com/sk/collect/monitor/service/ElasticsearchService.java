@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 
 import com.sk.collect.monitor.vo.Count;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -36,9 +39,11 @@ public class ElasticsearchService {
 
 	@Value("${elasticsearch.monitoring.indices}")
 	private String[] monIndices;
-	
+
 	@Value("${elasticsearch.type}")
 	private String esType;
+
+	private long esTotal;
 
 	public void indexCount(String message) {
 		System.out.println("Get message from /mon/putCounter: " + message);
@@ -104,14 +109,29 @@ public class ElasticsearchService {
 		return cntList;
 	}
 
-	public Count esCount() {
+	public void esTotalCount() {
 		SearchQuery query = new NativeSearchQueryBuilder()
 				.withIndices(monIndices).build();
 
-		long total = elasticsearchTemplate.count(query);
+		long curTotal = elasticsearchTemplate.count(query);
+		if(esTotal == 0L) {
+			System.out.println("Elasticsearch counter is initialized.");
+			esTotal = curTotal;
+			return;
+		}
 
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-		Count cnt = new Count(sf.format(new Date()), "elasticsearch", "localhost", total);
-		return cnt;
+		Count cnt = new Count(sf.format(new Date()), "elasticsearch", "localhost", curTotal - esTotal);
+
+		ObjectMapper mapper = new ObjectMapper();
+		String source = null;
+		try {
+			source = mapper.writeValueAsString(cnt);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		esTotal = curTotal;
+		indexCount(source);
 	}
 }
