@@ -31,6 +31,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 
 @RestController
+@RequestMapping("/mon")
 public class MonRestController {
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -39,13 +40,13 @@ public class MonRestController {
 	private ElasticsearchService elasticsearchService;
 
 	// elasticsearch에 카운트를 저장
-	@RequestMapping(value = "/mon/putCount", method = RequestMethod.POST)
+	@RequestMapping(value = "/putCount", method = RequestMethod.POST)
 	public void putCount(@RequestBody String message) {
 		elasticsearchService.indexCount(message);
 	}
 
 	// elasticsearch의 카운트 데이터를 삭제
-	@RequestMapping("/mon/delCount")
+	@RequestMapping("/delCount")
 	public void delCount(
 			@RequestParam(value = "date_from", defaultValue = "") String date_from,
 			@RequestParam(value = "date_to", defaultValue = "") String date_to) {
@@ -53,7 +54,7 @@ public class MonRestController {
 	}
 
 	// elasticsearch의 카운트를 조회
-	@RequestMapping("/mon/getCount")
+	@RequestMapping("/getCount")
 	public @ResponseBody List<Count> getCount(
 			@RequestParam(value = "date_from", defaultValue = "") String date_from,
 			@RequestParam(value = "date_to", defaultValue = "") String date_to,
@@ -64,7 +65,7 @@ public class MonRestController {
 	}
 
 	// elasticsearch의 저장 건수를 계산하여 저장하는 스케줄러 구동
-	@RequestMapping("/mon/esCount/start")
+	@RequestMapping("/esCount/start")
 	public void startEsCount() throws JsonProcessingException, SchedulerException {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
@@ -81,7 +82,7 @@ public class MonRestController {
 	}
 
 	// elasticsearch의 저장 건수를 계산하여 저장하는 스케줄러 상태 확인
-	@RequestMapping("/mon/esCount/state")
+	@RequestMapping("/esCount/state")
 	public void stateEsCount() throws JsonProcessingException, SchedulerException {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
@@ -99,7 +100,7 @@ public class MonRestController {
 	}
 
 	// elasticsearch의 저장 건수를 계산하여 저장하는 스케줄러 중지
-	@RequestMapping("/mon/esCount/stop")
+	@RequestMapping("/esCount/stop")
 	public void stopEsCount() throws JsonProcessingException, SchedulerException {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 		sc.unscheduleJob(triggerKey("cronTrigger", "es"));

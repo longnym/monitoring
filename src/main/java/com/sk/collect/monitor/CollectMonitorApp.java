@@ -6,6 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource("elasticsearch.properties")
+@PropertySource("scheduler.properties")
 public class CollectMonitorApp {
 	public static void main(String[] args) {
 		SpringApplication.run(CollectMonitorApp.class, args);

@@ -46,7 +46,7 @@ public class ElasticsearchService {
 	private long esTotal;
 
 	public void indexCount(String message) {
-		System.out.println("Get message from /mon/putCounter: " + message);
+		System.out.println("Get message: " + message);
 
 		IndexQuery query = new IndexQuery();
 		query.setIndexName(esIndex);
@@ -133,5 +133,16 @@ public class ElasticsearchService {
 
 		esTotal = curTotal;
 		indexCount(source);
+	}
+	
+	public void indexJobResult(String message, String saveIndex, String saveType) {
+		System.out.println("Get message: " + message);
+
+		IndexQuery query = new IndexQuery();
+		query.setIndexName(saveIndex);
+		query.setType(saveType);
+		query.setSource(message);
+
+		elasticsearchTemplate.index(query);
 	}
 }
