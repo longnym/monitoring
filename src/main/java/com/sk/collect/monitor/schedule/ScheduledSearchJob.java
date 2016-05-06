@@ -3,6 +3,7 @@ package com.sk.collect.monitor.schedule;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -28,25 +29,30 @@ public class ScheduledSearchJob extends QuartzJobBean {
 		String saveType = (String) context.getMergedJobDataMap().get("saveType");
 		System.out.println(job.getQuery());
 		try {
-			String result = requestData("http://" + searchHost + "/_sql?sql=" + job.getQuery());
+			String result = requestData(searchHost, job.getQuery());
 			elasticsearchService.indexJobResult(result, saveIndex, saveType);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public String requestData(String searchUrl) throws IOException {
-		URL obj = new URL(searchUrl);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	public String requestData(String searchHost, String query) throws IOException {
+		URL obj = new URL("http://" + searchHost + "/_sql");
+		System.out.println("Sending 'GET' request to URL : " + searchHost);
+		HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
 
-		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		conn.setRequestMethod("POST");
+		conn.setDoOutput(true);
+		conn.setDoInput(true);
 
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + searchUrl);
+		OutputStream os = conn.getOutputStream();
+		os.write(query.getBytes());
+		os.flush();
+
+		int responseCode = conn.getResponseCode();
 		System.out.println("Response Code : " + responseCode);
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 

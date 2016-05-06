@@ -1,15 +1,11 @@
 package com.sk.collect.monitor.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.sk.collect.monitor.vo.Count;
 import com.sk.collect.monitor.service.ElasticsearchService;
-import com.sk.collect.monitor.schedule.ElasticsearchCountJob;
+import com.sk.collect.monitor.service.SchedulerService;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,26 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import org.quartz.JobKey;
-import org.quartz.JobDetail;
-import org.quartz.Trigger;
-import org.quartz.SchedulerException;
-import org.quartz.impl.StdScheduler;
-import org.quartz.impl.matchers.GroupMatcher;
-
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerKey.triggerKey;
-import static org.quartz.TriggerBuilder.newTrigger;
-import static org.quartz.CronScheduleBuilder.cronSchedule;
-
 @RestController
 @RequestMapping("/mon")
 public class MonRestController {
 	@Autowired
-	private ApplicationContext applicationContext;
+	private ElasticsearchService elasticsearchService;
 
 	@Autowired
-	private ElasticsearchService elasticsearchService;
+	private SchedulerService schedulerService;
 
 	// elasticsearch에 카운트를 저장
 	@RequestMapping(value = "/putCount", method = RequestMethod.POST)
@@ -66,44 +50,15 @@ public class MonRestController {
 
 	// elasticsearch의 저장 건수를 계산하여 저장하는 스케줄러 구동
 	@RequestMapping("/esCount/start")
-	public void startEsCount() throws JsonProcessingException, SchedulerException {
-		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
-
-		JobDetail countJob = newJob(ElasticsearchCountJob.class)
-				.withIdentity("countJob", "es")
-				.build();
-
-		Trigger countTrigger = newTrigger()
-				.withIdentity("cronTrigger", "es")
-				.withSchedule(cronSchedule("0/1 * * * * ?"))
-				.build();
-
-		sc.scheduleJob(countJob, countTrigger);
-	}
-
-	// elasticsearch의 저장 건수를 계산하여 저장하는 스케줄러 상태 확인
-	@RequestMapping("/esCount/state")
-	public void stateEsCount() throws JsonProcessingException, SchedulerException {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
-
-		for(String groupName : sc.getJobGroupNames()) {
-			for (JobKey jobKey : sc.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
-				System.out.println("job name: " + jobKey.getName());
-				for(Trigger trigger : sc.getTriggersOfJob(jobKey)) {
-					String time = sf.format(trigger.getStartTime());
-					System.out.println("excution start time: " + time);
-				}
-			}
-		}
+	public void startEsCount() {
+		schedulerService.scheduleEsCount();
+		System.out.println("elasticsearch counter is started.");
 	}
 
 	// elasticsearch의 저장 건수를 계산하여 저장하는 스케줄러 중지
 	@RequestMapping("/esCount/stop")
-	public void stopEsCount() throws JsonProcessingException, SchedulerException {
-		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
-		sc.unscheduleJob(triggerKey("cronTrigger", "es"));
-		System.out.println("Schedule is stopped.");
+	public void stopEsCount() {
+		schedulerService.unscheduleEsCount();
+		System.out.println("elasticsearch counter is stopped.");
 	}
 }

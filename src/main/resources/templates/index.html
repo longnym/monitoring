@@ -21,15 +21,27 @@
 <body>
 	<div id="beats" style="float: left">
 		<div id="filebeat_chart"></div>
-		<div id="filebeat_info" style="text-align: center"><b>FileBeat</b></div>
+		<div id="filebeat_info" style="text-align: center">
+			<b>FileBeat</b>
+		</div>
 	</div>
 	<div id="shipping" style="float: left">
 		<div id="shipping_chart"></div>
-		<div id="shipping_info" style="text-align: center"><b>Shipping</b></div>
+		<div id="shipping_info" style="text-align: center">
+			<b>Shipping</b>
+		</div>
 	</div>
 	<div id="indexing" style="float: left">
 		<div id="indexing_chart"></div>
-		<div id="indexing_info" style="text-align: center"><b>Indexing</b></div>
+		<div id="indexing_info" style="text-align: center">
+			<b>Indexing</b>
+		</div>
+	</div>
+	<div id="elasticsearch" style="float: left">
+		<div id="elasticsearch_chart"></div>
+		<div id="elasticsearch_info" style="text-align: center">
+			<b>Elasticsearch</b>
+		</div>
 	</div>
 	<script type="text/javascript">
 		//<![CDATA[
@@ -117,6 +129,17 @@
 				}
 			}).then(function(data) {
 				drawLine(data, "#indexing_chart", "blue");
+			});
+
+			$.ajax({
+				url : '/mon/getCount',
+				data : {
+					"date_from" : "2016-05-01T00:00:00.000Z",
+					"date_to" : "2016-05-01T00:00:30.000Z",
+					"type" : "elasticsearch"
+				}
+			}).then(function(data) {
+				drawLine(data, "#elasticsearch_chart", "purple");
 			});
 		});
 		//]]>
