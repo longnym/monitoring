@@ -44,9 +44,15 @@ public class SchedulerService {
 		dataMap.put("schdMeta", schd);
 		dataMap.put("searchHost", searchHost);
 
-		JobDetail schdJob = newJob(ScheduledJob.class).withIdentity("job_" + schd.getSchdId(), schd.getSchdNm()).setJobData(new JobDataMap(dataMap)).build();
+		JobDetail schdJob = newJob(ScheduledJob.class)
+				.withIdentity("job_" + schd.getSchdId(), schd.getSchdNm())
+				.setJobData(new JobDataMap(dataMap))
+				.build();
 
-		Trigger schdTrigger = newTrigger().withIdentity("trigger_" + schd.getSchdId(), schd.getSchdNm()).withSchedule(cronSchedule(schd.getCron())).build();
+		Trigger schdTrigger = newTrigger()
+				.withIdentity("trigger_" + schd.getSchdId(), schd.getSchdNm())
+				.withSchedule(cronSchedule(schd.getCron()))
+				.build();
 
 		try {
 			sc.scheduleJob(schdJob, schdTrigger);
@@ -68,9 +74,14 @@ public class SchedulerService {
 	public void scheduleEsCount() {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
-		JobDetail countJob = newJob(ElasticsearchCountJob.class).withIdentity("countJob", "es").build();
+		JobDetail countJob = newJob(ElasticsearchCountJob.class)
+				.withIdentity("countJob", "es")
+				.build();
 
-		Trigger countTrigger = newTrigger().withIdentity("cronTrigger", "es").withSchedule(cronSchedule("0/1 * * * * ?")).build();
+		Trigger countTrigger = newTrigger()
+				.withIdentity("cronTrigger", "es")
+				.withSchedule(cronSchedule("0/1 * * * * ?"))
+				.build();
 		try {
 			sc.scheduleJob(countJob, countTrigger);
 		} catch (SchedulerException e) {
