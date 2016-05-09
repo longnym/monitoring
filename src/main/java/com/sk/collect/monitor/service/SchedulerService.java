@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.quartz.CronTrigger;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -24,9 +25,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.sk.collect.monitor.schedule.ElasticsearchCountJob;
-import com.sk.collect.monitor.schedule.ScheduledSearchJob;
-import com.sk.collect.monitor.vo.Job;
+import com.sk.collect.monitor.schedule.ScheduledJob;
 import com.sk.collect.monitor.vo.Schedule;
+import com.sk.collect.monitor.vo.CronResult;
 
 @Service
 public class SchedulerService {
@@ -36,30 +37,16 @@ public class SchedulerService {
 	@Value("${schedule.search.host}")
 	private String searchHost;
 
-	@Value("${schedule.save.index}")
-	private String saveIndex;
-
-	@Value("${schedule.save.type}")
-	private String saveType;
-
-	public void scheduleJob(Job job) {
+	public void scheduleJob(Schedule schd) {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("jobMeta", job);
+		dataMap.put("schdMeta", schd);
 		dataMap.put("searchHost", searchHost);
-		dataMap.put("saveIndex", saveIndex);
-		dataMap.put("saveType", saveType);
 
-		JobDetail schdJob = newJob(ScheduledSearchJob.class)
-				.withIdentity("job_" + job.getJobId(), "schedule")
-				.setJobData(new JobDataMap(dataMap))
-				.build();
+		JobDetail schdJob = newJob(ScheduledJob.class).withIdentity("job_" + schd.getSchdId(), schd.getSchdNm()).setJobData(new JobDataMap(dataMap)).build();
 
-		Trigger schdTrigger = newTrigger()
-				.withIdentity("trigger_" + job.getJobId(), "schedule")
-				.withSchedule(cronSchedule(job.getSchedule()))
-				.build();
+		Trigger schdTrigger = newTrigger().withIdentity("trigger_" + schd.getSchdId(), schd.getSchdNm()).withSchedule(cronSchedule(schd.getCron())).build();
 
 		try {
 			sc.scheduleJob(schdJob, schdTrigger);
@@ -68,11 +55,11 @@ public class SchedulerService {
 		}
 	}
 
-	public void unscheduleJob(Job job) {
+	public void unscheduleJob(Schedule schd) {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
 		try {
-			sc.unscheduleJob(triggerKey("trigger_" + job.getJobId(), "schedule"));
+			sc.unscheduleJob(triggerKey("trigger_" + schd.getSchdId(), schd.getSchdNm()));
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
@@ -83,11 +70,7 @@ public class SchedulerService {
 
 		JobDetail countJob = newJob(ElasticsearchCountJob.class).withIdentity("countJob", "es").build();
 
-		Trigger countTrigger = newTrigger()
-				.withIdentity("cronTrigger", "es")
-				.withSchedule(cronSchedule("0/1 * * * * ?"))
-				.build();
-
+		Trigger countTrigger = newTrigger().withIdentity("cronTrigger", "es").withSchedule(cronSchedule("0/1 * * * * ?")).build();
 		try {
 			sc.scheduleJob(countJob, countTrigger);
 		} catch (SchedulerException e) {
@@ -104,21 +87,22 @@ public class SchedulerService {
 		}
 	}
 
-	public List<Schedule> checkScheduler() {
-		List<Schedule> schdList = new ArrayList<Schedule>();
+	public List<CronResult> checkScheduler() {
+		List<CronResult> results = new ArrayList<CronResult>();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 		try {
 			for (String groupName : sc.getJobGroupNames()) {
 				for (JobKey jobKey : sc.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
 					for (Trigger trigger : sc.getTriggersOfJob(jobKey)) {
-						schdList.add(new Schedule(groupName, jobKey.getName(), sf.format(trigger.getStartTime())));
+						CronTrigger ct = (CronTrigger) trigger;
+						results.add(new CronResult(groupName, jobKey.getName(), sf.format(ct.getStartTime()), ct.getCronExpression()));
 					}
 				}
 			}
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
-		return schdList;
+		return results;
 	}
 }

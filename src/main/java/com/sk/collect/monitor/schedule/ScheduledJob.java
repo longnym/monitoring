@@ -12,9 +12,10 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.sk.collect.monitor.service.ElasticsearchService;
-import com.sk.collect.monitor.vo.Job;
+import com.sk.collect.monitor.vo.Node;
+import com.sk.collect.monitor.vo.Schedule;
 
-public class ScheduledSearchJob extends QuartzJobBean {
+public class ScheduledJob extends QuartzJobBean {
 	private ElasticsearchService elasticsearchService;
 
 	public void setElasticsearchService(ElasticsearchService elasticsearchService) {
@@ -23,14 +24,29 @@ public class ScheduledSearchJob extends QuartzJobBean {
 
 	@Override
 	public void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		Job job = (Job) context.getMergedJobDataMap().get("jobMeta");
-		String searchHost = (String) context.getMergedJobDataMap().get("searchHost");
-		String saveIndex = (String) context.getMergedJobDataMap().get("saveIndex");
-		String saveType = (String) context.getMergedJobDataMap().get("saveType");
-		System.out.println(job.getQuery());
+		Schedule schd = (Schedule) context.getMergedJobDataMap().get("schdMeta");
+
+		for (Node node : schd.getNodes()) {
+			String type = node.getNodeType();
+			if (type.equals("ES Query")) {
+				String searchHost = (String) context.getMergedJobDataMap().get("searchHost");
+				String searchQuery = node.getProperty("query");
+				String saveIndex = node.getProperty("index");
+				String saveType = node.getProperty("type");
+
+				elasticsearchJob(searchHost, searchQuery, saveIndex, saveType);
+			} else if (type.equals("JAR")) {
+			} else if (type.equals("SMS")) {
+			} else {
+
+			}
+		}
+	}
+
+	public void elasticsearchJob(String host, String query, String index, String type) {
 		try {
-			String result = requestData(searchHost, job.getQuery());
-			elasticsearchService.indexJobResult(result, saveIndex, saveType);
+			String result = requestData(host, query);
+			elasticsearchService.indexJobResult(result, index, type);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

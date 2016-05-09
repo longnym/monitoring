@@ -1,25 +1,47 @@
 package com.sk.collect.monitor.vo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Schedule {
-	private final String group;
-	private final String job;
-	private final String start;
+	private long schdId;
+	private String schdNm;
+	private String cron;
+	private List<Node> nodes;
 
-	public Schedule(String group, String job, String start) {
-		this.group = group;
-		this.job = job;
-		this.start = start;
+	public Schedule() {
+		nodes = new ArrayList<Node>();
 	}
 
-	public String getGroup() {
-		return group;
+	public long getSchdId() {
+		return schdId;
 	}
 
-	public String getJob() {
-		return job;
+	public void setSchdId(long schdId) {
+		this.schdId = schdId;
 	}
 
-	public String getStart() {
-		return start;
+	public String getSchdNm() {
+		return schdNm;
+	}
+
+	public void setSchdNm(String schdNm) {
+		this.schdNm = schdNm;
+	}
+
+	public String getCron() {
+		return cron;
+	}
+
+	public void setCron(String cron) {
+		this.cron = cron + " ?";
+	}
+
+	public List<Node> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<Node> nodes) {
+		this.nodes = nodes;
 	}
 }

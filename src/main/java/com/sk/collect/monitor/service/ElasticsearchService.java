@@ -134,7 +134,7 @@ public class ElasticsearchService {
 		esTotal = curTotal;
 		indexCount(source);
 	}
-	
+
 	public void indexJobResult(String message, String saveIndex, String saveType) {
 		System.out.println("Get message: " + message);
 
