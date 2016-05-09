@@ -50,14 +50,16 @@
 			right : 20,
 			bottom : 30,
 			left : 50
-		}, width = 480 - margin.left - margin.right, height = 250 - margin.top - margin.bottom;
+		}, width = 480 - margin.left - margin.right, height = 250 - margin.top
+				- margin.bottom;
 
 		var formatDate = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ");
 
 		var x = d3.time.scale().range([ 0, width ]);
 		var y = d3.scale.linear().range([ height, 0 ]);
 
-		var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(d3.time.seconds, 5);
+		var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(
+				d3.time.seconds, 5);
 		var yAxis = d3.svg.axis().scale(y).orient("left");
 
 		function drawLine(data, area, color) {
@@ -73,7 +75,11 @@
 			});
 
 			d3.select(area).select("svg").remove();
-			var svg = d3.select(area).append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			var svg = d3.select(area).append("svg").attr("width",
+					width + margin.left + margin.right).attr("height",
+					height + margin.top + margin.bottom).append("g").attr(
+					"transform",
+					"translate(" + margin.left + "," + margin.top + ")");
 
 			x.domain(d3.extent(data, function(d) {
 				return d.date;
@@ -82,22 +88,27 @@
 				return d.count;
 			}) ]);
 
-			svg.selectAll(".vline").data(d3.range(30)).enter().append("line").attr("x1", function(d) {
-				return d * width / 29;
-			}).attr("x2", function(d) {
-				return d * width / 29;
-			}).attr("y1", function(d) {
-				return 0;
-			}).attr("y2", function(d) {
-				return height;
-			}).style("stroke", "#eee");
+			svg.selectAll(".vline").data(d3.range(30)).enter().append("line")
+					.attr("x1", function(d) {
+						return d * width / 29;
+					}).attr("x2", function(d) {
+						return d * width / 29;
+					}).attr("y1", function(d) {
+						return 0;
+					}).attr("y2", function(d) {
+						return height;
+					}).style("stroke", "#eee");
 
-			svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
-			svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text("Event");
-			svg.append("path").datum(data).attr("class", "line").attr("d", line).attr("stroke", color);
+			svg.append("g").attr("class", "x axis").attr("transform",
+					"translate(0," + height + ")").call(xAxis);
+			svg.append("g").attr("class", "y axis").call(yAxis).append("text")
+					.attr("transform", "rotate(-90)").attr("y", 6).attr("dy",
+							".71em").style("text-anchor", "end").text("Event");
+			svg.append("path").datum(data).attr("class", "line")
+					.attr("d", line).attr("stroke", color);
 		}
 
-		$(document).ready(function() {
+		$.drawChart = function() {
 			$.ajax({
 				url : '/mon/getCount',
 				data : {
@@ -131,16 +142,34 @@
 				drawLine(data, "#indexing_chart", "blue");
 			});
 
+			var date_from = new Date(Date.now() - 1000 * 30);
+			var date_to = new Date();
+
 			$.ajax({
 				url : '/mon/getCount',
 				data : {
-					"date_from" : "2016-05-01T00:00:00.000Z",
-					"date_to" : "2016-05-01T00:00:30.000Z",
+					"date_from" : $.esTimeFormat(date_from),
+					"date_to" : $.esTimeFormat(date_to),
 					"type" : "elasticsearch"
 				}
 			}).then(function(data) {
 				drawLine(data, "#elasticsearch_chart", "purple");
 			});
+		}
+
+		$.esTimeFormat = function(date) {
+			function pad2(n) { // always returns a string
+				return (n < 10 ? '0' : '') + n;
+			}
+
+			return date.getFullYear() + '-' + pad2(date.getMonth() + 1) + '-'
+					+ pad2(date.getDate()) + 'T' + pad2(date.getHours()) + ':'
+					+ pad2(date.getMinutes()) + ':' + pad2(date.getSeconds())
+					+ '.000Z';
+		}
+
+		$(document).ready(function() {
+			setInterval('$.drawChart()', 1000);
 		});
 		//]]>
 	</script>

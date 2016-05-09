@@ -75,11 +75,11 @@ public class SchedulerService {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
 		JobDetail countJob = newJob(ElasticsearchCountJob.class)
-				.withIdentity("countJob", "es")
+				.withIdentity("countJob", "elasticsearch")
 				.build();
 
 		Trigger countTrigger = newTrigger()
-				.withIdentity("cronTrigger", "es")
+				.withIdentity("cronTrigger", "elasticsearch")
 				.withSchedule(cronSchedule("0/1 * * * * ?"))
 				.build();
 		try {
@@ -92,7 +92,7 @@ public class SchedulerService {
 	public void unscheduleEsCount() {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 		try {
-			sc.unscheduleJob(triggerKey("cronTrigger", "es"));
+			sc.unscheduleJob(triggerKey("cronTrigger", "elasticsearch"));
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}

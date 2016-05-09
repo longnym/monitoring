@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Scheduling Web</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="webjars/jquery/2.2.3/jquery.min.js"></script>
+<script src="webjars/d3js/3.5.16/d3.min.js"></script>
+</head>
+<body>
+	<table id="schedules" border="1">
+		<thead>
+			<tr>
+				<th>Schedule Name</th>
+				<th>Schedule ID</th>
+				<th>Start Time</th>
+				<th>Expression</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+		//<![CDATA[
+		$(document).ready(function() {
+			$.ajax({
+				url : '/schd/joblist'
+			}).then(function(data) {
+				$.each(data, function(index, value) {
+					var body = '<tr>';
+					body = body + '<td>' + value.group + '</td>';
+					body = body + '<td>' + value.job + '</td>';
+					body = body + '<td>' + value.start + '</td>';
+					body = body + '<td>' + value.cron + '</td>';
+					body = body + '</tr>';
+					$('#schedules > tbody:last').append(body);
+				});
+			});
+		});
+		//]]>
+	</script>
+</body>
+</html>

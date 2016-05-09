@@ -132,6 +132,8 @@ public class ElasticsearchService {
 		}
 
 		esTotal = curTotal;
+		
+		source = source.replace("date", "@timestamp");
 		indexCount(source);
 	}
 
