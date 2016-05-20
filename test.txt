@@ -1,157 +1,214 @@
-curl -X GET "http://localhost:8080/mon/getCount?date_from=2016-05-01T00:00:00.000Z&date_to=2016-05-01T00:00:30.000Z&type=filebeat"
-curl -X GET "http://localhost:8080/mon/esCount"
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+	font: 14px sans-serif;
+}
 
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:00.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":100}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:01.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":153}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:02.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":126}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:03.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":233}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:04.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":110}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:05.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":91}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:06.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":208}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:07.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":134}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:08.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":152}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:09.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":173}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:10.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":125}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:11.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":143}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:12.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":192}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:13.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":213}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:14.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":132}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:15.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":84}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:16.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":96}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:17.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":120}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:18.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":72}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:19.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":150}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:20.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":142}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:21.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":167}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:22.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":188}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:23.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":178}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:24.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":168}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:25.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":130}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:26.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":121}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:27.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":94}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:28.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":124}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:29.000Z\",\"type\":\"indexing\",\"host\":\"localhost\",\"count\":142}
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
 
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:00.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":120}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:01.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":143}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:02.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":136}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:03.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":223}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:04.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":114}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:05.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":95}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:06.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":210}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:07.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":137}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:08.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":132}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:09.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":156}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:10.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":154}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:11.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":100}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:12.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":234}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:13.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":253}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:14.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":112}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:15.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":78}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:16.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":105}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:17.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":131}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:18.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":87}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:19.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":171}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:20.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":131}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:21.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":145}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:22.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":176}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:23.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":188}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:24.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":193}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:25.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":101}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:26.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":115}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:27.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":105}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:28.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":131}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:29.000Z\",\"type\":\"shipping\",\"host\":\"localhost\",\"count\":156}
+.line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}
 
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:00.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":55}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:01.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":67}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:02.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":64}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:03.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":120}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:04.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":76}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:05.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":45}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:06.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":112}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:07.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":73}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:08.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":54}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:09.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":87}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:10.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":82}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:11.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":53}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:12.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":124}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:13.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":131}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:14.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":56}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:15.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":32}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:16.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":59}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:17.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":167}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:18.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":48}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:19.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":98}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:20.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":72}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:21.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":73}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:22.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":98}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:23.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":101}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:24.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":121}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:25.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":54}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:26.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":63}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:27.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":94}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:28.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":77}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:29.000Z\",\"type\":\"filebeat\",\"host\":\"skcc1\",\"count\":88}
+.overlay {
+	fill: none;
+	pointer-events: all;
+}
 
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:00.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":62}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:01.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":54}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:02.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":78}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:03.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":61}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:04.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":80}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:05.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":65}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:06.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":98}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:07.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":63}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:08.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":67}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:09.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":75}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:10.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":91}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:11.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":73}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:12.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":112}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:13.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":101}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:14.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":65}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:15.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":43}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:16.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":65}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:17.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":143}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:18.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":56}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:19.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":101}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:20.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":81}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:21.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":65}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:22.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":75}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:23.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":99}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:24.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":115}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:25.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":57}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:26.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":78}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:27.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":87}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:28.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":69}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:29.000Z\",\"type\":\"filebeat\",\"host\":\"skcc2\",\"count\":90}
+.focus circle {
+	fill: none;
+	stroke: steelblue;
+}
 
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:00.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":102}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:01.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":112}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:02.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":156}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:03.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":121}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:04.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":165}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:05.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":131}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:06.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":210}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:07.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":129}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:08.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":121}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:09.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":140}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:10.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":192}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:11.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":151}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:12.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":221}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:13.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":202}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:14.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":130}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:15.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":91}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:16.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":111}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:17.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":270}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:18.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":121}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:19.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":194}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:20.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":172}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:21.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":115}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:22.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":136}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:23.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":188}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:24.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":220}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:25.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":104}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:26.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":164}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:27.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":173}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:28.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":132}
-curl -X POST "http://localhost:8080/mon/putCount" -H "Content-type: application/json" -d {\"@timestamp\":\"2016-05-01T00:00:29.000Z\",\"type\":\"elasticsearch\",\"host\":\"localhost\",\"count\":180}
+.grid .tick {
+	stroke: lightgrey;
+	opacity: 0.7;
+}
+
+.grid path {
+	stroke-width: 0;
+}
+
+body {
+	margin: 0px auto;
+	text-align: center;
+}
+
+div {
+	background: url('bgimage.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
+h1 {
+	font-size: 40px;
+	font-family: "Times New Roman", Times, serif;
+	color: white
+}
+</style>
+
+<body>
+	<div>
+		<br>
+		<h1>Optimizing with Genetic Algorithms</h1>
+		<br>
+	</div>
+	<br>
+	<br>
+	<script src="d3.v3.min.js"></script>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script>
+		var margin = {
+			top : 20,
+			right : 60,
+			bottom : 20,
+			left : 60
+		}, width = window.innerWidth - 200 - margin.left - margin.right, height = window.innerHeight - 200 - margin.top - margin.bottom;
+
+		var curtainEnd = false;
+
+		var bisectDate = d3.bisector(function(d) {
+			return d.key;
+		}).left;
+
+		var x = d3.scale.ordinal().rangePoints([ 0, width ]);
+		var y = d3.scale.linear().range([ height, 0 ]);
+
+		var color = d3.scale.category10();
+
+		var xAxis = d3.svg.axis().scale(x).orient("bottom");
+		var yAxis = d3.svg.axis().scale(y).orient("left");
+
+		var line = d3.svg.line().interpolate("basis").x(function(d) {
+			return x(d.key);
+		}).y(function(d) {
+			return y(d.value_set);
+		});
+
+		jQuery.get('result.txt', function(input) {
+			var result = input.replace(/\n/g, ',').split(',');
+
+			var data = [];
+
+			$.each(result, function(i, v) {
+				var temp = {
+					key : i,
+					value : v
+				}
+				data.push(temp);
+			});
+
+			drawLine(data);
+		});
+
+		function drawLine(data) {
+			d3.select("body").select("svg").remove();
+
+			xAxis.tickValues(data.map(function(d) {
+				if (d.key % 1000 == 0) {
+					return d.key;
+				}
+			}));
+
+			var svg = d3.select("body").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			color.domain(d3.keys(data[0]).filter(function(key) {
+				if (key != "key") {
+					return key;
+				}
+			}));
+
+			var columns = color.domain().map(function(name) {
+				return {
+					name : name,
+					values : data.map(function(d) {
+						return {
+							key : d.key,
+							value_set : +d[name]
+						};
+					})
+				};
+			});
+
+			x.domain(data.map(function(d) {
+				return d.key;
+			}));
+
+			y.domain([ 0, d3.max(columns, function(c) {
+				return d3.max(c.values, function(v) {
+					return v.value_set;
+				});
+			}) + 1 ]);
+
+			svg.append("g").attr("class", "x axis").call(xAxis).attr("transform", "translate(0," + height + ")").append("text").attr("x", width + 20).attr("y", 15).attr("dy", ".71em").style("text-anchor", "end").style("font-size", "17px").style("fill", "purple").text("iteration");
+			svg.append("g").attr("class", "grid").attr("transform", "translate(0," + height + ")").call(xAxis.tickSize(-height, 0, 0).tickFormat(""));
+
+			svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("x", 60).attr("y", -15).attr("dy", ".71em").style("text-anchor", "end").style("font-size", "17px").style("fill", "purple").text("time(s)");
+
+			var column = svg.selectAll(".column").data(columns).enter().append("g").attr("class", "column");
+
+			column.append("path").attr("class", "line").attr("d", function(d) {
+				return line(d.values);
+			}).style("stroke", function(d) {
+				return color(d.name);
+			});
+
+			column.append("text").datum(function(d) {
+				return {
+					name : d.name,
+					value : d.values[d.values.length - 1]
+				};
+			}).attr("transform", function(d) {
+				return "translate(" + x(d.value.key) + "," + y(d.value.value_set) + ")";
+			}).attr("x", 3).attr("dy", ".35em").text(function(d) {
+				return "performance";
+			});
+
+			/* Add 'curtain' rectangle to hide entire graph */
+			var curtain = svg.append('rect').attr('x', -1 * width - 81).attr('y', -1 * height + 4).attr('height', height - 4).attr('width', width + 80).attr('class', 'curtain').attr('transform', 'rotate(180)').style('fill', '#ffffff')
+
+			/* Create a shared transition for anything we're animating */
+			var t = svg.transition().delay(750).duration(6000).ease('linear').each('end', function() {
+				d3.select('line.guide').transition().style('opacity', 0).remove();
+			});
+			t.select('rect.curtain').attr('width', 0);
+			t.select('line.guide').attr('transform', 'translate(' + width + ', 0)');
+
+			setTimeout(function() {
+				curtainEnd = true;
+			}, 7000);
+
+			var focus = svg.append("g").attr("class", "focus").style("display", "none");
+			focus.append("circle").attr("r", 6);
+			focus.append("text").attr("x", 0).attr("y", -15).attr("dy", ".35em");
+
+			svg.append("rect").attr("class", "overlay").attr("width", width).attr("height", height).on("mouseover", function() {
+				focus.style("display", null);
+			}).on("mouseout", function() {
+				focus.style("display", "none");
+			}).on("mousemove", mousemove);
+
+			function mousemove() {
+				if (curtainEnd) {
+					var domain = x.domain();
+					var range = x.range();
+					var x0 = domain[d3.bisect(range, d3.mouse(this)[0]) - 1];
+					var i = bisectDate(data, x0, 1);
+					var d0 = data[i - 1];
+					var d1 = data[i];
+					var d = x0 - d0.key > d1.key - x0 ? d1 : d0;
+
+					focus.attr("transform", "translate(" + x(d.key) + "," + y(d.value) + ")");
+					focus.select("text").text("iteration:" + d.key + " (" + d.value + " Sec)");
+				}
+			}
+		}
+	</script>
+</body>
