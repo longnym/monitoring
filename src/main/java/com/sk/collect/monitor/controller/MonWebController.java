@@ -10,6 +10,16 @@ public class MonWebController {
 		return "monitor";
 	}
 	
+	@RequestMapping("/mon2")
+	public String monitor2() {
+		return "monitor2";
+	}
+	
+	@RequestMapping("/mon3")
+	public String monitor3() {
+		return "monitor3";
+	}
+	
 	@RequestMapping("/schd")
 	public String schedule() {
 		return "schedule";

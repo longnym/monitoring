@@ -15,6 +15,7 @@ import org.quartz.CronTrigger;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
+import org.quartz.ObjectAlreadyExistsException;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdScheduler;
@@ -36,8 +37,12 @@ public class SchedulerService {
 
 	@Value("${schedule.search.host}")
 	private String searchHost;
+	
+	@Value("${schedule.monitor.interval}")
+	private String monInterval;
 
-	public void scheduleJob(Schedule schd) {
+	// 스케줄을 실행
+	public int scheduleJob(Schedule schd) {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
 		Map<String, Object> dataMap = new HashMap<String, Object>();
@@ -53,14 +58,19 @@ public class SchedulerService {
 				.withIdentity("trigger_" + schd.getSchdId(), schd.getSchdNm())
 				.withSchedule(cronSchedule(schd.getCron()))
 				.build();
-
 		try {
 			sc.scheduleJob(schdJob, schdTrigger);
-		} catch (SchedulerException e) {
-			e.printStackTrace();
+		} catch (ObjectAlreadyExistsException e) {
+			return -2;
 		}
+		catch (SchedulerException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return 0;
 	}
 
+	// 스케줄을 종료
 	public void unscheduleJob(Schedule schd) {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 
@@ -71,16 +81,22 @@ public class SchedulerService {
 		}
 	}
 
-	public void scheduleEsCount() {
+	// Elasticsearch의 index Count를 집계하는 스케줄러를 구동함
+	public void scheduleEsCount(String index, String[] type) {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
+
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("index", index);
+		dataMap.put("type", type);
 
 		JobDetail countJob = newJob(ElasticsearchCountJob.class)
 				.withIdentity("countJob", "elasticsearch")
+				.setJobData(new JobDataMap(dataMap))
 				.build();
 
 		Trigger countTrigger = newTrigger()
 				.withIdentity("cronTrigger", "elasticsearch")
-				.withSchedule(cronSchedule("0/1 * * * * ?"))
+				.withSchedule(cronSchedule("0/" + monInterval + " * * * * ?"))
 				.build();
 		try {
 			sc.scheduleJob(countJob, countTrigger);
@@ -89,6 +105,7 @@ public class SchedulerService {
 		}
 	}
 
+	// Elasticsearch의 index Count를 집계하는 스케줄러를 중단함
 	public void unscheduleEsCount() {
 		StdScheduler sc = (StdScheduler) applicationContext.getBean("schedulerFactoryBean");
 		try {
@@ -98,6 +115,7 @@ public class SchedulerService {
 		}
 	}
 
+	// 현재 수행중인 스케줄러의 목록을 출력
 	public List<CronResult> checkScheduler() {
 		List<CronResult> results = new ArrayList<CronResult>();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");

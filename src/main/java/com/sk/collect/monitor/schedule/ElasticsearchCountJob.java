@@ -16,6 +16,8 @@ public class ElasticsearchCountJob extends QuartzJobBean {
 
 	@Override
 	public void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		elasticsearchService.esTotalCount();
+		String index = (String) context.getMergedJobDataMap().get("index");
+		String[] type = (String[]) context.getMergedJobDataMap().get("type");
+		elasticsearchService.esTotalCount(index, type);
 	}
 }

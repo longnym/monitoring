@@ -21,9 +21,7 @@
 <body>
 	<script type="text/javascript">
 		//<![CDATA[
-		var component = [ "col", "ship", "idx", "es" ];
-
-		var componentNm = [ "Collecting", "Shipping", "indexing", "Storing" ];
+		var idxList = null;
 
 		var color = [ "red", "green", "blue", "purple", "orange", "yellow", "maroon", "fuchsia", "navy", "lime", "teal", "olive"];
 
@@ -104,32 +102,29 @@
 			var date_from = $.esTimeFormat(new Date(current - interval_ms * 31));
 			var date_to = $.esTimeFormat(new Date(current - interval_ms));
 
-			$.each(component, function(index, value) {
+			$.each(idxList, function(index, value) {
 				// check heartbeat (heartbeat 집계가 0이거나 heartbeat이 없을 경우)
-				var col = color[index];
-				var checked = false;
+				var col = 'lightgray';
 				$.each(heartbeat, function(i, v) {
-					if (value == v.typ) {
+					if (value.host == v.host && value.agentType == v.agnt) {
 						if (v.hb > 0) {
-							checked = true;
+							col = color[index];
 						}
 					}
 				});
 
-				if (!checked) {
-					var col = 'lightgray';
-				}
-				
+				// Load graph
 				$.ajax({
 					url : '/mon/getCount',
 					data : {
 						"date_from" : date_from,
 						"date_to" : date_to,
-						"type" : value,
+						"type" : "col",
+						"source" : value.indexNm,
 						"interval" : interval
 					}
 				}).then(function(data) {
-					drawLine(data, "#chart_" + index, color[index], tick, timeTerm);
+					drawLine(data, "#chart_" + index, col, tick, timeTerm);
 				});
 			});
 		}
@@ -138,6 +133,7 @@
 			function pad2(n) { // always returns a string
 				return (n < 10 ? '0' : '') + n;
 			}
+
 			return date.getFullYear() + '-' + pad2(date.getMonth() + 1) + '-' + pad2(date.getDate()) + 'T' + pad2(date.getHours()) + ':' + pad2(date.getMinutes()) + ':' + pad2(date.getSeconds()) + '.000Z';
 		}
 
@@ -165,8 +161,15 @@
 				interval_ms = interval_ms * timeNumber * 60 * 60 * 24;
 			}
 
-			$.each(componentNm, function(index, value) {
-				var $newChart = $('<div id="id_' + index + '" style="float: left"><div id="chart_' + index + '"></div><div id="info" style="text-align: center"><b>' + value + '</b></div></div>');
+			$.ajax({
+				url : '/mon/getIndex',
+				async : false
+			}).then(function(data) {
+				idxList = data;
+			});
+
+			$.each(idxList, function(index, value) {
+				var $newChart = $('<div id="id_' + index + '" style="float: left"><div id="chart_' + index + '"></div><div id="info" style="text-align: center"><b>' + value.indexNm + '</b></div></div>');
 				$("body").append($newChart);
 			});
 

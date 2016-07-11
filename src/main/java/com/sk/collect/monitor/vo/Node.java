@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Node {
-	private String nodeId;
+	private String nodeSeq;
 	private String nodeNm;
 	private String nodeType;
 	private Map<String, String> property;
@@ -21,12 +21,12 @@ public class Node {
 		return property.get(key);
 	}
 
-	public String getNodeId() {
-		return nodeId;
+	public String getNodeSeq() {
+		return nodeSeq;
 	}
 
-	public void setNodeId(String nodeId) {
-		this.nodeId = nodeId;
+	public void setNodeSeq(String nodeSeq) {
+		this.nodeSeq = nodeSeq;
 	}
 
 	public String getNodeNm() {
